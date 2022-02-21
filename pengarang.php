@@ -44,7 +44,7 @@
         </thead>
         <?php
         $no = 1;
-        $ambilData = mysqli_query($conn,"select * from buku inner join pengarang on buku.id_pengarang=pengarang.id_pengarang");
+        $ambilData = mysqli_query($koneksi,"select * from buku inner join pengarang on buku.id_pengarang=pengarang.id_pengarang");
         while( $tampil=mysqli_fetch_array($ambilData)){
             echo("
                 <tr>

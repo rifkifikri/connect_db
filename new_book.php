@@ -8,6 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <style>
         body{
             background-color:#BFFFF0;
@@ -26,12 +29,12 @@
         </center>
         <?php
      include("connect.php");
-     $array_penerbit = mysqli_query($conn, "select * from penerbit");
-     $array_pengarang = mysqli_query($conn, "select * from pengarang");
+     $array_penerbit = mysqli_query($koneksi, "select * from penerbit");
+     $array_pengarang = mysqli_query($koneksi, "select * from pengarang");
     ?>
     <div class="row">
         <div class=col-md-12>
-            <form action="add.php" methiod=post name=form1>
+            <form action="new_book.php" method=post name=form1>
                     <table width=100% cellpadding=10 class=table-bordered border=0>
                         <tr>
                             <td>ISBN</td>
@@ -48,24 +51,29 @@
                         <tr>
                             <td>Penerbit</td>
                             <td><select class="form-control" name="id_penerbit">
-                                <option>penerbit 1</option>
-                                <option value="">penerbit 2</option>
-                                <option value="">penerbit 3</option>
+                                <?php
+                               while($penerbit=mysqli_fetch_array($array_penerbit)){
+                                 echo"
+                                 <option value=".$penerbit['id_penerbit'].">".$penerbit[nama_penerbit]."</option>
+                                 ";
+                               }?>
                             </select></td>
                         </tr>
                         <tr>
                             <td>Pengarang</td>
                             <td>
                                 <select class="form-control" name="id_pengarang">
-                                <option>pengarang 1</option>
-                                <option value="">pengarang 2</option>
-                                <option value="">pengarang 3</option>
+                                    <?php
+                                    while($pengarang=mysqli_fetch_array( $array_pengarang)){
+                                        echo("<option value=".$pengarang['id_pengarang'].">".$pengarang[nama_pengarang]."</option>");
+                                    }
+                                    ?>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="submit" class="form-control btn btn-primary" name=submit value="Add"></td>
+                            <td><input type="submit" class="form-control btn btn-primary" name=submit value="Add" onclick="myFunction()"></td>
                         </tr>
                     </table>
             </form>
@@ -81,3 +89,22 @@
         
 </body>
 </html>
+<?php
+    if(isset($_POST['submit'])){
+        mysqli_query($koneksi, "insert into buku set
+        isbn = '$_POST[isbn]',
+        judul = '$_POST[judul]',
+        tahun = '$_POST[tahun]',
+        id_penerbit = '$_POST[id_penerbit]',
+        id_pengarang  = '$_POST[id_pengarang]'");
+        ?>
+        <script>
+            function myFunction() {
+            alert("Penambahan Buku Berhasil!!");
+            }
+        </script>
+        <?php
+    }else{
+        echo("gagal");
+    }
+ ?>

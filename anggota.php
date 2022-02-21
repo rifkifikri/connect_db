@@ -45,7 +45,7 @@
         </thead>
         <?php
         $no = 1;
-        $ambilData = mysqli_query($conn,"select * from peminjaman inner join anggota on peminjaman.id_anggota=anggota.id_anggota
+        $ambilData = mysqli_query($koneksi,"select * from peminjaman inner join anggota on peminjaman.id_anggota=anggota.id_anggota
                                         inner join detail_peminjaman on detail_peminjaman.id_pinjam = peminjaman.id_pinjam
                                         inner join buku on buku.isbn=detail_peminjaman.isbn
                                         inner join katalog on katalog.id_katalog=buku.id_katalog");

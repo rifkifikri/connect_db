@@ -5,5 +5,5 @@
     $db="db_perpustakaan";
     
     // Create connection
-    $conn = new mysqli($servername,$username, $password,$db);
+    $koneksi = new mysqli($servername,$username, $password,$db);
     ?>
