@@ -97,7 +97,9 @@
         tahun = '$_POST[tahun]',
         id_penerbit = '$_POST[id_penerbit]',
         id_pengarang  = '$_POST[id_pengarang]'");
+        $insert= mysqli_query($koneksi,"insert into buku(isbn, judul, tahun, id_penerbit,id_pengarang) values(isbn, judul, tahun, id_penerbit,id_pengarang) ");
         ?>
+
         <script>
             function myFunction() {
             alert("Penambahan Buku Berhasil!!");

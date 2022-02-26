@@ -27,7 +27,7 @@
         <?php
     include("connect.php");
     ?>
-    <table class=table>
+    <table class="table table-hover">
         <div class="row" style="margin:50px">
             <div class=col-md-3>
                 <a href="indext.php" class="btn btn-primary"> Back</a>
@@ -39,17 +39,20 @@
                 <td>No</td>
                 <td>Buku Pinjaman</td>
                 <td>Kategori</td>
+                <td>Penerbit</td>
             </tr>
         </thead>
         <?php
         $no = 1;
-        $ambilData = mysqli_query($koneksi,"select * from buku left join katalog on buku.id_katalog=katalog.id_katalog");
+        $ambilData = mysqli_query($koneksi,"select * from buku left join katalog on buku.id_katalog=katalog.id_katalog
+                                        inner join penerbit on buku.id_penerbit=penerbit.id_penerbit order by judul");
         while( $tampil=mysqli_fetch_array($ambilData)){
             echo("
                 <tr>
                     <td>$no</td>
                     <td>$tampil[judul]</td>
                     <td>$tampil[jenis_katalog]</td>
+                    <td>$tampil[nama_penerbit]</td>
                 </tr>
             ");
             $no++;

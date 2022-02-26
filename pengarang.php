@@ -27,7 +27,7 @@
         <?php
      include("connect.php");
     ?>
-    <table class=table>
+    <table class="table table-hover">
         <div class="row" style="margin:50px">
             <div class=col-md-3>
                 <a href="indext.php" class="btn btn-primary"> Back</a>

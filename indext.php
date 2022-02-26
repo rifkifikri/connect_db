@@ -27,7 +27,7 @@
         <?php
             include("connect.php");
         ?>
-    <table class=table>
+    <table class="table table-hover" >
         <div class="row" style="margin:50px">
             <div class=col-md-3>
                 <a href="buku.php"  class="btn btn-outline-info" type="button"> Buku</a>
@@ -55,8 +55,10 @@
                 <td>sex</td>
                 <td>Buku Pinjaman</td>
                 <td>Kategori</td>
+                <td>Edit</td>
             </tr>
         </thead>
+        <tbody>
         <?php
         $no = 1;
         $ambilData = mysqli_query($koneksi,"select * from peminjaman inner join anggota on peminjaman.id_anggota=anggota.id_anggota
@@ -64,20 +66,23 @@
                                         inner join buku on buku.isbn=detail_peminjaman.isbn
                                         inner join katalog on katalog.id_katalog=buku.id_katalog");
         while( $tampil=mysqli_fetch_array($ambilData)){
-            echo("
+            ?>
                 <tr>
-                    <td>$no</td>
-                    <td>$tampil[nama]</td>
-                    <td>$tampil[alamat]</td>
-                    <td>$tampil[sex]</td>
-                    <td>$tampil[judul]</td>
-                    <td>$tampil[jenis_katalog]</td>
+                    <td scope ="row"><?php echo $no?></td>
+                    <td scope ="row"><?php echo $tampil["nama"]?></td>
+                    <td scope ="row"><?php echo $tampil["alamat"]?></td>
+                    <td scope ="row"><?php echo $tampil["sex"]?></td>
+                    <td scope ="row"><?php echo $tampil["judul"]?></td>
+                    <td scope ="row"><?php echo $tampil["jenis_katalog"]?></td>
+                    <td><a href='edit.php? id=<?php echo $tampil["id_anggota"] ?>' class="btn btn-warning" type="button"> EDIT</a></td>
                 </tr>
-            ");
+            <?php
+                ;
             $no++;
         }
         
         ?>
+        </tbody>
     </table>
     <!-- // Check connection
     if ($conn->connect_error) {
